@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Decrediton
+Comment=Decred cryptocurrency wallet
+Exec=decrediton
+Icon=org.decred.Decrediton
+Terminal=false
+Type=Application
+Categories=Network;Finance;
+Keywords=decred;crypto;wallet;cryptocurrency;blockchain;dcr;
+StartupWMClass=Decrediton
+X-GNOME-UsesNotifications=true

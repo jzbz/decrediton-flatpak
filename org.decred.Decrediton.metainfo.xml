@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.decred.Decrediton</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>ISC</project_license>
+  <name>Decrediton</name>
+  <summary>Decred cryptocurrency wallet</summary>
+
+  <description>
+    <p>
+      Decrediton is the official cross-platform GUI wallet for Decred (DCR),
+      built with Electron. It provides full wallet functionality, from sending
+      and receiving funds to participating in Decred's Proof-of-Stake system and
+      on-chain governance.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Send and receive DCR</li>
+      <li>SPV (light) mode for fast setup without a full blockchain download</li>
+      <li>Purchase tickets for Proof-of-Stake voting</li>
+      <li>Manage multiple wallets and accounts</li>
+      <li>View and export transaction history</li>
+      <li>Integrated Politeia and consensus-rule governance voting</li>
+      <li>Built-in privacy mixing (StakeShuffle / CoinShuffle++)</li>
+      <li>Optional Trezor hardware wallet support</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">org.decred.Decrediton.desktop</launchable>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>Wallet overview with balance and recent activity</caption>
+      <image>https://raw.githubusercontent.com/decred/dcrdocs/master/docs/img/decrediton/overview.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Sending DCR</caption>
+      <image>https://raw.githubusercontent.com/decred/dcrdocs/master/docs/img/decrediton/send.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Receiving DCR</caption>
+      <image>https://raw.githubusercontent.com/decred/dcrdocs/master/docs/img/decrediton/receive.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Transaction history</caption>
+      <image>https://raw.githubusercontent.com/decred/dcrdocs/master/docs/img/decrediton/history.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Purchasing Proof-of-Stake tickets</caption>
+      <image>https://raw.githubusercontent.com/decred/dcrdocs/master/docs/img/decrediton/purchase-tickets.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Governance voting</caption>
+      <image>https://raw.githubusercontent.com/decred/dcrdocs/master/docs/img/decrediton/governance.png</image>
+    </screenshot>
+  </screenshots>
+
+  <url type="homepage">https://decred.org/</url>
+  <url type="bugtracker">https://github.com/decred/decrediton/issues</url>
+  <url type="help">https://docs.decred.org/wallets/decrediton/decrediton-setup/</url>
+  <url type="vcs-browser">https://github.com/decred/decrediton</url>
+  <url type="contact">https://decred.org/community/</url>
+
+  <developer id="org.decred">
+    <name>Decred developers</name>
+  </developer>
+
+  <content_rating type="oars-1.1" />
+
+  <categories>
+    <category>Network</category>
+    <category>Finance</category>
+  </categories>
+
+  <keywords>
+    <keyword>decred</keyword>
+    <keyword>crypto</keyword>
+    <keyword>privacy</keyword>
+    <keyword>wallet</keyword>
+    <keyword>cryptocurrency</keyword>
+    <keyword>blockchain</keyword>
+    <keyword>dcr</keyword>
+  </keywords>
+
+  <releases>
+    <release version="2.1.5" date="2026-04-10">
+      <description>
+        <p>Maintenance release improving mixing reliability, with updated dcrd and dcrwallet components.</p>
+      </description>
+    </release>
+    <release version="2.1.4" date="2026-04-07">
+      <description>
+        <p>Stable release of the Decrediton wallet.</p>
+      </description>
+    </release>
+  </releases>
+</component>

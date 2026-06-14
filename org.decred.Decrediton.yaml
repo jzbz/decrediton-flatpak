@@ -1,0 +1,92 @@
+app-id: org.decred.Decrediton
+runtime: org.freedesktop.Platform
+runtime-version: '25.08'
+sdk: org.freedesktop.Sdk
+default-branch: stable
+
+command: decrediton
+
+finish-args:
+  # Windowing system + GPU acceleration (Wayland native, X11 fallback)
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --share=ipc
+  - --device=dri
+  # Audio for notification sounds
+  - --socket=pulseaudio
+  # Network access for blockchain sync / SPV peers
+  - --share=network
+  # Save exported transaction data (CSV) to the user's Downloads folder
+  - --filesystem=xdg-download
+  # Desktop notifications
+  - --talk-name=org.freedesktop.Notifications
+  # Inhibit the screensaver during long-running operations
+  - --talk-name=org.freedesktop.ScreenSaver
+  - --talk-name=org.gnome.SessionManager
+  # Route deleted files to the host trash
+  - --env=ELECTRON_TRASH=gio
+
+modules:
+  # zypak lets Chromium/Electron use its sandbox inside the Flatpak sandbox
+  # without the setuid chrome-sandbox helper.
+  - name: zypak
+    sources:
+      - type: git
+        url: https://github.com/refi64/zypak
+        tag: v2025.09
+        commit: 693a71c5ffa80ec9c9ce2ae03b1ccc493c698e53
+        x-checker-data:
+          type: git
+          tag-pattern: ^v([\d.]+)$
+
+  - name: decrediton
+    buildsystem: simple
+    build-commands:
+      # Extract the official AppImage
+      - chmod +x decrediton.AppImage
+      - ./decrediton.AppImage --appimage-extract
+
+      # Install the unpacked Electron application
+      - mkdir -p /app/lib/decrediton
+      - cp -r squashfs-root/* /app/lib/decrediton/
+
+      # Drop AppImage scaffolding and the setuid sandbox helper (zypak handles it)
+      - rm -f /app/lib/decrediton/chrome-sandbox /app/lib/decrediton/AppRun /app/lib/decrediton/decrediton.desktop /app/lib/decrediton/decrediton.png
+
+      # Launcher: run the Electron binary through zypak, preferring Wayland
+      - |
+        cat > /app/bin/decrediton <<'EOF'
+        #!/bin/sh
+        export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
+        export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/dev/null
+        exec zypak-wrapper /app/lib/decrediton/decrediton --ozone-platform-hint=auto "$@"
+        EOF
+      - chmod +x /app/bin/decrediton
+
+      # Desktop integration files
+      - install -Dm644 org.decred.Decrediton.desktop -t /app/share/applications/
+      - install -Dm644 org.decred.Decrediton.png /app/share/icons/hicolor/512x512/apps/org.decred.Decrediton.png
+      - install -Dm644 org.decred.Decrediton.metainfo.xml -t /app/share/metainfo/
+
+    sources:
+      - type: file
+        url: https://github.com/decred/decred-binaries/releases/download/v2.1.5/decrediton-linux-amd64-v2.1.5.AppImage
+        sha256: a8ab131b4d4eae78589b0fa82219205034b0b1fb0a10acaef3b53d12e63ad3bb
+        dest-filename: decrediton.AppImage
+        only-arches:
+          - x86_64
+        # Automated update detection via flatpak-external-data-checker
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/decred/decred-binaries/releases/latest
+          version-query: .tag_name | ltrimstr("v")
+          url-query: >-
+            .assets[]
+            | select(.name | test("^decrediton-linux-amd64-v.*\\.AppImage$"))
+            | .browser_download_url
+      - type: file
+        path: org.decred.Decrediton.desktop
+      - type: file
+        path: org.decred.Decrediton.png
+      - type: file
+        path: org.decred.Decrediton.metainfo.xml
