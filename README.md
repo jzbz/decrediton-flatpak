@@ -16,7 +16,7 @@ compilation of the app itself is required.
 | `org.decred.Decrediton.yaml` | Flatpak manifest |
 | `org.decred.Decrediton.metainfo.xml` | AppStream metadata (screenshots, releases) |
 | `org.decred.Decrediton.desktop` | Desktop entry |
-| `org.decred.Decrediton.png` | Application icon (512×512) |
+| `org.decred.Decrediton.svg` | Application icon (scalable) |
 | `flathub.json` | Flathub build config — restricts to x86_64 |
 | `get-sha256.sh` | Reads the AppImage SHA256 from the signed release manifest |
 
@@ -61,15 +61,6 @@ The manifest carries `x-checker-data`, so once the app is on Flathub the
 bot can open update PRs automatically — but that bot hashes the file without
 checking the signature, so run `./get-sha256.sh <version>` to validate such a PR
 before merging.
-
-To refresh the icon from a newer AppImage:
-
-```bash
-wget https://github.com/decred/decred-binaries/releases/download/v2.1.5/decrediton-linux-amd64-v2.1.5.AppImage
-chmod +x decrediton-linux-amd64-v2.1.5.AppImage
-./decrediton-linux-amd64-v2.1.5.AppImage --appimage-extract
-cp squashfs-root/decrediton.png org.decred.Decrediton.png   # ensure ≥ 512×512
-```
 
 ## Submit to Flathub
 
