@@ -78,13 +78,15 @@ for the authoritative, up-to-date steps.
 
 ## Packaging notes
 
-- Electron runs through **zypak**, so the setuid `chrome-sandbox` helper is removed
-  and the app uses the Flatpak sandbox instead.
-- Launched with `--ozone-platform-hint=auto` for native Wayland (X11 fallback).
-- Permissions are kept minimal: network (sync/SPV), Wayland + fallback X11, GPU
-  (`dri`), PulseAudio, desktop notifications, screensaver inhibition, and the
-  Downloads folder for transaction (CSV) exports. No broad session-bus, home, or
-  dconf access is granted.
+- Electron runs through **zypak** (from the Electron BaseApp), so the setuid
+  `chrome-sandbox` helper is removed and the app uses the Flatpak sandbox instead.
+- Decrediton bundles Electron 26 (Chromium 116), which targets X11, so the app
+  uses `--socket=x11` and runs via XWayland on Wayland sessions. The ozone
+  platform isn't forced, because the app's own CLI parser rejects unknown flags.
+- Permissions are kept minimal: network (sync/SPV), X11 display, GPU (`dri`),
+  PulseAudio, desktop notifications, screensaver inhibition, and the Downloads
+  folder for transaction (CSV) exports. No broad session-bus, home, or dconf
+  access is granted.
 - **Integrity vs. authenticity:** the build's trust anchor is the `sha256` pin,
   which flatpak-builder enforces on the downloaded AppImage. GPG signature
   checking is deliberately *not* done inside the build — Flathub's builders are

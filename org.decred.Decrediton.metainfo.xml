@@ -67,6 +67,11 @@
 
   <content_rating type="oars-1.1" />
 
+  <branding>
+    <color type="primary" scheme_preference="light">#aac4ff</color>
+    <color type="primary" scheme_preference="dark">#14274d</color>
+  </branding>
+
   <categories>
     <category>Network</category>
     <category>Finance</category>

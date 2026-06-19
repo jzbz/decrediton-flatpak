@@ -10,9 +10,11 @@ default-branch: stable
 command: decrediton
 
 finish-args:
-  # Windowing system + GPU acceleration (Wayland native, X11 fallback)
-  - --socket=wayland
-  - --socket=fallback-x11
+  # Windowing system + GPU acceleration.
+  # Decrediton bundles Electron 26 (Chromium 116), which targets X11; on Wayland
+  # sessions it runs via XWayland. Its CLI parser rejects unknown flags, so the
+  # ozone platform is not forced here.
+  - --socket=x11
   - --share=ipc
   - --device=dri
   # Audio for notification sounds
@@ -45,13 +47,13 @@ modules:
       # and the duplicated icon tree (icons are installed separately below)
       - rm -rf /app/lib/decrediton/chrome-sandbox /app/lib/decrediton/AppRun /app/lib/decrediton/decrediton.desktop /app/lib/decrediton/decrediton.png /app/lib/decrediton/usr
 
-      # Launcher: run the Electron binary through zypak, preferring Wayland
+      # Launcher: run the Electron binary through zypak
       - |
         cat > /app/bin/decrediton <<'EOF'
         #!/bin/sh
         export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
         export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/dev/null
-        exec zypak-wrapper /app/lib/decrediton/decrediton --ozone-platform-hint=auto "$@"
+        exec zypak-wrapper /app/lib/decrediton/decrediton "$@"
         EOF
       - chmod +x /app/bin/decrediton
 
