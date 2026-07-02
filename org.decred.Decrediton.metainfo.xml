@@ -28,30 +28,38 @@
 
   <launchable type="desktop-id">org.decred.Decrediton.desktop</launchable>
 
+  <requires>
+    <display_length compare="ge">768</display_length>
+  </requires>
+  <recommends>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </recommends>
+
   <screenshots>
     <screenshot type="default">
       <caption>Wallet overview with balance and recent activity</caption>
-      <image>https://raw.githubusercontent.com/decred/dcrdocs/master/docs/img/decrediton/overview.png</image>
+      <image>https://raw.githubusercontent.com/decred/dcrdocs/2b30600ab969c21e647ec35ae529a079b5d6f28a/docs/img/decrediton/overview.png</image>
     </screenshot>
     <screenshot>
       <caption>Sending DCR</caption>
-      <image>https://raw.githubusercontent.com/decred/dcrdocs/master/docs/img/decrediton/send.png</image>
+      <image>https://raw.githubusercontent.com/decred/dcrdocs/2b30600ab969c21e647ec35ae529a079b5d6f28a/docs/img/decrediton/send.png</image>
     </screenshot>
     <screenshot>
       <caption>Receiving DCR</caption>
-      <image>https://raw.githubusercontent.com/decred/dcrdocs/master/docs/img/decrediton/receive.png</image>
+      <image>https://raw.githubusercontent.com/decred/dcrdocs/2b30600ab969c21e647ec35ae529a079b5d6f28a/docs/img/decrediton/receive.png</image>
     </screenshot>
     <screenshot>
       <caption>Transaction history</caption>
-      <image>https://raw.githubusercontent.com/decred/dcrdocs/master/docs/img/decrediton/history.png</image>
+      <image>https://raw.githubusercontent.com/decred/dcrdocs/2b30600ab969c21e647ec35ae529a079b5d6f28a/docs/img/decrediton/history.png</image>
     </screenshot>
     <screenshot>
       <caption>Purchasing Proof-of-Stake tickets</caption>
-      <image>https://raw.githubusercontent.com/decred/dcrdocs/master/docs/img/decrediton/purchase-tickets.png</image>
+      <image>https://raw.githubusercontent.com/decred/dcrdocs/2b30600ab969c21e647ec35ae529a079b5d6f28a/docs/img/decrediton/purchase-tickets.png</image>
     </screenshot>
     <screenshot>
       <caption>Governance voting</caption>
-      <image>https://raw.githubusercontent.com/decred/dcrdocs/master/docs/img/decrediton/governance.png</image>
+      <image>https://raw.githubusercontent.com/decred/dcrdocs/2b30600ab969c21e647ec35ae529a079b5d6f28a/docs/img/decrediton/governance.png</image>
     </screenshot>
   </screenshots>
 

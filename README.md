@@ -83,10 +83,14 @@ for the authoritative, up-to-date steps.
 - Decrediton bundles Electron 26 (Chromium 116), which targets X11, so the app
   uses `--socket=x11` and runs via XWayland on Wayland sessions. The ozone
   platform isn't forced, because the app's own CLI parser rejects unknown flags.
-- Permissions are kept minimal: network (sync/SPV), X11 display, GPU (`dri`),
-  PulseAudio, desktop notifications, screensaver inhibition, and the Downloads
-  folder for transaction (CSV) exports. No broad session-bus, home, or dconf
+- Permissions are kept minimal: network (sync/SPV), X11 display, device access
+  (GPU acceleration and USB for Trezor hardware wallets via the bundled
+  `trezord-go` — the same `--device=all` used by the official Trezor Suite
+  Flatpak), desktop notifications, screensaver inhibition, and the Downloads
+  folder for transaction (CSV) exports. No audio, session-bus, home, or dconf
   access is granted.
+- Trezor use additionally requires the host to have Trezor udev rules installed
+  (as with any distribution of Decrediton).
 - **Integrity vs. authenticity:** the build's trust anchor is the `sha256` pin,
   which flatpak-builder enforces on the downloaded AppImage. GPG signature
   checking is deliberately *not* done inside the build — Flathub's builders are

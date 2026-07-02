@@ -10,15 +10,16 @@ default-branch: stable
 command: decrediton
 
 finish-args:
-  # Windowing system + GPU acceleration.
+  # Windowing system.
   # Decrediton bundles Electron 26 (Chromium 116), which targets X11; on Wayland
   # sessions it runs via XWayland. Its CLI parser rejects unknown flags, so the
   # ozone platform is not forced here.
   - --socket=x11
   - --share=ipc
-  - --device=dri
-  # Audio for notification sounds
-  - --socket=pulseaudio
+  # GPU acceleration + USB access for Trezor hardware wallets: Decrediton spawns
+  # a bundled trezord-go, which needs the USB device nodes. Same permission as
+  # the official Trezor Suite Flatpak (io.trezor.suite).
+  - --device=all
   # Network access for blockchain sync / SPV peers
   - --share=network
   # Save exported transaction data (CSV) to the user's Downloads folder
@@ -28,8 +29,6 @@ finish-args:
   # Inhibit the screensaver during long-running operations
   - --talk-name=org.freedesktop.ScreenSaver
   - --talk-name=org.gnome.SessionManager
-  # Route deleted files to the host trash
-  - --env=ELECTRON_TRASH=gio
 
 modules:
   - name: decrediton
@@ -69,9 +68,11 @@ modules:
         dest-filename: decrediton.AppImage
         only-arches:
           - x86_64
-        # Automated update detection via flatpak-external-data-checker
+        # Automated update detection via flatpak-external-data-checker.
+        # is-main-source lets the checker also update the metainfo <release> entry.
         x-checker-data:
           type: json
+          is-main-source: true
           url: https://api.github.com/repos/decred/decred-binaries/releases/latest
           version-query: .tag_name | ltrimstr("v")
           url-query: >-
